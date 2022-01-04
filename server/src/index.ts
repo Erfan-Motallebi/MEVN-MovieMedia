@@ -1,6 +1,8 @@
 import express, { Request, Response, Express } from "express";
 import { connect } from "mongoose";
 import morgan from "morgan";
+import { PostRouteHandler } from "../routes/post-route";
+import "express-async-errors";
 
 const PORT = (process.env.PORT || 5000) as number;
 const HOST = process.env.HOST || "localhost";
@@ -19,6 +21,8 @@ app.use(express.urlencoded({ extended: false }));
  */
 
 app.use(morgan("dev"));
+
+app.use(PostRouteHandler);
 
 const asynStart = async () => {
   try {
