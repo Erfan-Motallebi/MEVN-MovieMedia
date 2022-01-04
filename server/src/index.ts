@@ -5,6 +5,7 @@ import morgan from "morgan";
 import { PostRouteHandler } from "../routes/post-route";
 import { errorHandler } from "./../middlewares/errorHandler";
 import { notFoundErrorHandler } from "../middlewares/notFoundErrorHandler";
+import path from "path/posix";
 
 const PORT = (process.env.PORT || 5000) as number;
 const HOST = process.env.HOST || "localhost";
@@ -16,7 +17,7 @@ const app: Express = express();
  */
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(express.static(path.join(__dirname, "public")));
 /**
  * @routes Express middlewares
  * @path post
@@ -24,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(morgan("dev"));
 
-app.use(PostRouteHandler);
+app.use("/api/posts", PostRouteHandler);
 
 app.all("*", notFoundErrorHandler);
 
@@ -42,3 +43,5 @@ const asynStart = async () => {
     console.error({ error });
   }
 };
+
+asynStart();

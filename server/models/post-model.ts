@@ -1,4 +1,4 @@
-import { Model, model, Schema, SchemaType } from "mongoose";
+import { Model, model, Schema, Document } from "mongoose";
 
 interface IPostAttr {
   title: string;
@@ -7,7 +7,7 @@ interface IPostAttr {
   image: string;
 }
 
-interface IPostDocument extends Document {
+export interface IPostDocument extends Document {
   title: string;
   content: string;
   category: string;
@@ -17,18 +17,18 @@ interface IPostDocument extends Document {
 }
 
 interface IPostModel extends Model<IPostDocument> {
-  buildPost(attr: IPostAttr): Exclude<IPostDocument, "Date">;
+  buildPost(attr: IPostAttr): Promise<IPostDocument>;
 }
 
 const postSchema = new Schema(
   {
     title: {
       type: String,
-      required: true,
+      required: [true, "Title is required."],
     },
     content: {
       type: Schema.Types.String,
-      required: true,
+      required: [true, "Content is required."],
     },
     category: {
       type: "String",
@@ -36,21 +36,32 @@ const postSchema = new Schema(
         return "Drama";
       },
       minlength: 1,
-      maxlength: 5,
+      maxlength: 20,
       uppercase: true,
     },
     image: {
       type: Schema.Types.String,
-      required: true,
+      required: [true, "Please pick an image to upload."],
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    versionKey: false,
+    toJSON: {
+      transform(doc, ret: IPostDocument) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
 );
 
 postSchema.statics.buildPost = async function (
   attr: IPostAttr
-): Promise<IPostAttr> {
-  return new Post(attr);
+): Promise<IPostDocument> {
+  return await Post.create(attr);
 };
 
-const Post = model("Post", postSchema);
+const Post = model<IPostDocument, IPostModel>("Post", postSchema);
+
+export default Post;
