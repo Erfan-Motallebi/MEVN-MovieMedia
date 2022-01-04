@@ -48,7 +48,18 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/:postId", async (req: Request, res: Response) => {
   const { postId } = req.params as PostParamsType;
   const post = await PostModel.findById(postId);
+  if (!post) {
+    throw new BadRequestError();
+  }
   res.status(302).json({ post });
+});
+router.delete("/:postId", async (req: Request, res: Response) => {
+  const { postId } = req.params as PostParamsType;
+  const post = await PostModel.findByIdAndRemove(postId);
+  if (!post) {
+    throw new BadRequestError();
+  }
+  res.status(302).json({ removeOperation: true, deleted: true });
 });
 
 export { router as PostRouteHandler };
