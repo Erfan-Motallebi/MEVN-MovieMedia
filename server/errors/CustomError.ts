@@ -1,4 +1,4 @@
-type IReturnError = {
+export type IReturnError = {
   message: string;
   field?: string;
 }[];
@@ -6,8 +6,8 @@ type IReturnError = {
 export abstract class CustomError extends Error {
   public abstract statusCode: number;
 
-  constructor() {
-    super();
+  constructor(message: string) {
+    super(message);
     Object.setPrototypeOf(this, CustomError.prototype);
   }
 
