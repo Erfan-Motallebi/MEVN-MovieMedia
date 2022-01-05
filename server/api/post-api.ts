@@ -2,7 +2,8 @@ import { BadRequestError } from "./../errors/BadRequestError";
 import { Request, Response } from "express";
 import PostModel, { IPostDocument } from "../models/post-model";
 import { unlinkSync } from "fs";
-import path from "path/posix";
+import { findImageAddr } from "../utils/imageAddr";
+
 interface IPostRequest {
   content: string;
   category: string;
@@ -41,11 +42,23 @@ export const bookAPI = {
   },
   deletePostById: async (req: Request, res: Response) => {
     const { postId } = req.params as PostParamsType;
-    const post = await PostModel.findByIdAndRemove(postId);
-    if (!post) {
+    try {
+      const postResult = (await PostModel.findByIdAndDelete(postId, {
+        returnOriginal: true,
+      })) as IPostDocument;
+      if (postResult.image !== "") {
+        unlinkSync(findImageAddr({ imageName: postResult.image }));
+      }
+
+      res
+        .sendStatus(200)
+        .json({
+          deletedPost: postResult,
+          message: "Post was deleted successfully",
+        });
+    } catch (error) {
       throw new BadRequestError();
     }
-    res.status(302).json({ removeOperation: true, deleted: true });
   },
   updateBookById: async (req: Request, res: Response) => {
     const postRequest = req.body as IPostRequest;
@@ -56,15 +69,7 @@ export const bookAPI = {
       newImage = imageFile.filename;
       try {
         unlinkSync(
-          path.join(
-            __dirname,
-            "../",
-            "src",
-            "public",
-            "images",
-            "posts",
-            `${req.body.oldImage}`
-          )
+          findImageAddr({ imageName: postRequest.oldImage as string })
         );
       } catch (error) {
         throw new BadRequestError();
