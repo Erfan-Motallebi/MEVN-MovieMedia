@@ -50,12 +50,10 @@ export const bookAPI = {
         unlinkSync(findImageAddr({ imageName: postResult.image }));
       }
 
-      res
-        .sendStatus(200)
-        .json({
-          deletedPost: postResult,
-          message: "Post was deleted successfully",
-        });
+      res.status(200).json({
+        deletedPost: postResult,
+        message: "Post was deleted successfully",
+      });
     } catch (error) {
       throw new BadRequestError();
     }
