@@ -27,4 +27,6 @@ router.get("/:postId", bookAPI.findPostById);
 
 router.delete("/:postId", bookAPI.deletePostById);
 
+router.patch("/:postId", uploadAPI, bookAPI.updateBookById);
+
 export { router as PostRouteHandler };
