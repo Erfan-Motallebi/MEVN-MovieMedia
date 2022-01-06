@@ -2,13 +2,14 @@
 	<v-main class="pa-2">
 		<v-container>
 			<v-row>
-				<v-col v-for="post of posts" :key="post.id" cols="3" md="4">
+				<v-col v-for="card of cards" :key="card.id" cols="3" md="4">
 					<card
 						:cardsInfo="{
-							title: post.title,
-							image: post.image,
-							content: post.content,
-							category: post.category,
+							id: card.id,
+							title: card.title,
+							image: card.image,
+							content: card.content,
+							category: card.category,
 						}"
 					/>
 				</v-col>
@@ -26,7 +27,7 @@ export default Vue.extend({
 	components: { Card },
 	name: "Posts",
 	props: {
-		posts: {
+		cards: {
 			required: true,
 			type: Array as () => IPostItems[],
 		},

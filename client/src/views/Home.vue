@@ -1,20 +1,20 @@
 <template>
-	<posts :posts="posts" />
+	<Cards :cards="cardsItems" />
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { mapGetters } from "vuex";
-import Posts from "../components/Posts.vue";
+import Cards from "../components/Cards.vue";
 
 export default Vue.extend({
 	name: "Home",
 	components: {
-		Posts,
+		Cards,
 	},
 	computed: {
 		...mapGetters({
-			posts: "allPosts",
+			cardsItems: "allPosts",
 		}),
 	},
 });

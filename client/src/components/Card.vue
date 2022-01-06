@@ -1,14 +1,19 @@
 <template>
 	<div>
-		<v-card class="mx-auto" max-width="400" min-height="350">
+		<v-card
+			class="mx-auto"
+			max-width="400"
+			min-height="350"
+			:to="{ name: 'posts', params: { postId: `${cardsInfo.id}` } }"
+		>
 			<v-img :src="`/posts/${cardsInfo.image}`" height="300px"></v-img>
 
-			<v-card-title> {{ cardsInfo.title }} </v-card-title>
+			<v-card-title class="headline"> {{ cardsInfo.title }} </v-card-title>
 
 			<v-card-subtitle> {{ cardsInfo.category }}</v-card-subtitle>
 
 			<v-card-actions>
-				<v-btn color="blue darken-2" text> Details </v-btn>
+				<v-btn color="blue darken-2" small outlined> Details </v-btn>
 
 				<v-spacer></v-spacer>
 
@@ -40,6 +45,7 @@ export default Vue.extend({
 		cardsInfo: {
 			required: true,
 			type: Object as () => {
+				id: string;
 				title: string;
 				content: string;
 				category: string;
