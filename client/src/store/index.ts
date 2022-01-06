@@ -36,7 +36,7 @@ export default new Vuex.Store<IPostMedia>({
     async getAllPost({ commit }) {
       const resp: AxiosResponse<IPayload> = await axios.request({
         method: "GET",
-        url: "/posts",
+        url: "/api/posts",
       });
       commit(FETCH_ALL_POST, resp.data);
     },
