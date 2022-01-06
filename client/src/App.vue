@@ -34,20 +34,30 @@
 	</v-app>
 </template>
 
-<script>
+<script lang="ts">
 import { mdiHome, mdiPost, mdiShare } from "@mdi/js";
+import Vue from "vue";
+import { mapActions, mapGetters } from "vuex";
 
-export default {
-	data: () => ({
-		drawer: null,
-		selectedItem: 1,
-		items: [
-			{ title: "Home", icon: mdiHome, link: "/" },
-			{ title: "Add a post", icon: mdiPost, link: "/create-post" },
-			{ title: "about us", icon: mdiShare, link: "/about-us" },
-		],
-	}),
-};
+export default Vue.extend({
+	data() {
+		return {
+			drawer: null,
+			selectedItem: 1,
+			items: [
+				{ title: "Home", icon: mdiHome, link: "/" },
+				{ title: "Add a post", icon: mdiPost, link: "/create-post" },
+				{ title: "about us", icon: mdiShare, link: "/about-us" },
+			],
+		};
+	},
+	computed: {
+		...mapActions(["getAllPost"]),
+	},
+	async created() {
+		await this.$store.dispatch("getAllPost");
+	},
+});
 </script>
 
 <style lang="scss" scoped>
