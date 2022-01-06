@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<v-card class="mx-auto" max-width="400" min-height="350">
-			<v-img :src="`/images/posts/${cardsInfo.image}`" height="300px"></v-img>
+			<v-img :src="`/posts/${cardsInfo.image}`" height="300px"></v-img>
 
 			<v-card-title> {{ cardsInfo.title }} </v-card-title>
 
