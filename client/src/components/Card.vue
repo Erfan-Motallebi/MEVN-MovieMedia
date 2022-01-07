@@ -6,7 +6,7 @@
 			min-height="350"
 			:to="{ name: 'posts', params: { postId: `${cardsInfo.id}` } }"
 		>
-			<v-img :src="`/posts/${cardsInfo.image}`" height="300px"></v-img>
+			<v-img :src="`images/posts/${cardsInfo.image}`" height="300px"></v-img>
 
 			<v-card-title class="headline"> {{ cardsInfo.title }} </v-card-title>
 
