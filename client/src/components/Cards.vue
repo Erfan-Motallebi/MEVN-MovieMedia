@@ -2,7 +2,7 @@
 	<v-main class="pa-2">
 		<v-container>
 			<v-row>
-				<v-col v-for="card of cards" :key="card.id" cols="3" md="4">
+				<v-col v-for="card of cards" :key="card.id" xs="12" sm="6" md="4">
 					<card
 						:cardsInfo="{
 							id: card.id,
