@@ -51,7 +51,7 @@ export default Vue.extend({
 			],
 		};
 	},
-	computed: {
+	methods: {
 		...mapActions(["getAllPost"]),
 	},
 	async created() {

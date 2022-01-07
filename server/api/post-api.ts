@@ -38,7 +38,7 @@ export const bookAPI = {
     if (!post) {
       throw new BadRequestError();
     }
-    res.status(302).json({ post });
+    res.status(200).json({ post });
   },
   deletePostById: async (req: Request, res: Response) => {
     const { postId } = req.params as PostParamsType;

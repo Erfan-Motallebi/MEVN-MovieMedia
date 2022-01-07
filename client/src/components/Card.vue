@@ -1,38 +1,29 @@
 <template>
-	<div>
-		<v-card
-			class="mx-auto"
-			max-width="400"
-			min-height="350"
-			:to="{ name: 'posts', params: { postId: `${cardsInfo.id}` } }"
-		>
-			<v-img :src="`images/posts/${cardsInfo.image}`" height="300px"></v-img>
+	<v-container>
+		<v-row>
+			<v-col>
+				<v-card
+					class="mx-auto"
+					max-width="400"
+					min-height="350"
+					:to="{ name: 'posts', params: { postId: `${cardsInfo.id}` } }"
+				>
+					<v-img
+						:src="`images/posts/${cardsInfo.image}`"
+						height="300px"
+					></v-img>
 
-			<v-card-title class="headline"> {{ cardsInfo.title }} </v-card-title>
+					<v-card-title class="headline"> {{ cardsInfo.title }} </v-card-title>
 
-			<v-card-subtitle> {{ cardsInfo.category }}</v-card-subtitle>
+					<v-card-subtitle> {{ cardsInfo.category }}</v-card-subtitle>
 
-			<v-card-actions>
-				<v-btn color="blue darken-2" small outlined> Details </v-btn>
-
-				<v-spacer></v-spacer>
-
-				<v-btn icon @click="show = !show">
-					<v-icon>{{ show ? mdiChevronUp : mdiChevronDown }}</v-icon>
-				</v-btn>
-			</v-card-actions>
-
-			<v-expand-transition>
-				<div v-show="show">
-					<v-divider></v-divider>
-
-					<v-card-text>
-						{{ cardsInfo.content }}
-					</v-card-text>
-				</div>
-			</v-expand-transition>
-		</v-card>
-	</div>
+					<v-card-actions>
+						<v-btn color="blue darken-2" small outlined> Details </v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-col>
+		</v-row>
+	</v-container>
 </template>
 
 <script lang='ts'>

@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import AddPost from "../views/AddPost.vue";
-import Posts from "../views/Posts.vue";
+import Post from "../views/Post.vue";
 
 Vue.use(VueRouter);
 
@@ -20,7 +20,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/posts/:postId",
     name: "posts",
-    component: Posts,
+    component: Post,
   },
   {
     path: "/about-us",
